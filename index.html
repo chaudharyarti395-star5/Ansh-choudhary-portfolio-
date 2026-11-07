@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ansh Choudhary — Developer & Digital Craftsman</title>
+  
+  <!-- Premium Fonts: Syne, Space Grotesk & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            title: ['Syne', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            obsidian: {
+              950: '#030305',
+              900: '#07070a',
+              850: '#0d0e12',
+              800: '#13151b',
+              750: '#1b1d26',
+              700: '#262936',
+              600: '#3a3e52'
+            },
+            cyan: {
+              glow: '#00f2fe',
+              accent: '#06b6d4'
+            },
+            violet: {
+              glow: '#7928ca',
+              accent: '#8b5cf6'
+            }
+          },
+          animation: {
+            'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+            'radar': 'radarSweep 6s linear infinite',
+            'shimmer': 'shimmer 2.5s infinite linear',
+          },
+          keyframes: {
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+              '50%': { opacity: '0.85', transform: 'scale(1.05)' }
+            },
+            radarSweep: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' }
+            },
+            shimmer: {
+              '0%': { transform: 'translateX(-100%)' },
+              '100%': { transform: 'translateX(100%)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #030305;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1d212d;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #00f2fe;
+    }
+
+    /* Ambient Blueprint Grid */
+    .bg-grid-mesh {
+      background-size: 44px 44px;
+      background-image: 
+        radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    }
+
+    /* Glassmorphism Luxury Border */
+    .glass-panel {
+      background: rgba(13, 14, 18, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .glass-panel-interactive {
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+    .glass-panel-interactive:hover {
+      border-color: rgba(0, 242, 254, 0.35);
+      box-shadow: 0 16px 48px -12px rgba(0, 242, 254, 0.15), 0 0 0 1px rgba(0, 242, 254, 0.2);
+    }
+
+    /* Gradient Text */
+    .text-glow-gradient {
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 40%, #00f2fe 80%, #7928ca 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Noise Texture Overlay */
+    .noise-bg {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+    }
+
+    /* Glowing code syntax highlights */
+    .token-keyword { color: #f472b6; }
+    .token-string { color: #38bdf8; }
+    .token-function { color: #a78bfa; }
+    .token-number { color: #f59e0b; }
+    .token-comment { color: #64748b; font-style: italic; }
+
+    /* Blinking Cursor */
+    .type-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 1.1em;
+      background-color: #00f2fe;
+      vertical-align: text-bottom;
+      animation: blink 0.85s steps(2, start) infinite;
+    }
+    @keyframes blink {
+      to { visibility: hidden; }
+    }
+  </style>
+</head>
+
+<body class="bg-obsidian-950 text-slate-200 font-sans selection:bg-cyan-glow selection:text-black min-h-screen relative overflow-x-hidden noise-bg">
+
+  <!-- Interactive Dynamic Ambient Background Canvas -->
+  <canvas id="ambientCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-50"></canvas>
+
+  <!-- Glowing Torchlight Follower -->
+  <div id="torchLight" class="pointer-events-none fixed -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-cyan-glow/10 via-violet-glow/5 to-transparent blur-[120px] z-0 transition-opacity duration-300"></div>
+
+  <!-- FLOATING ULTRA PILL NAVBAR -->
+  <header class="fixed top-5 inset-x-0 z-50 flex justify-center px-4">
+    <nav class="flex items-center justify-between px-6 py-2.5 rounded-full bg-obsidian-900/85 backdrop-blur-2xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.8)] w-full max-w-4xl transition-all duration-300">
+      
+      <!-- Monogram Brand Badge -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="relative flex items-center justify-center w-9 h-9 rounded-full bg-obsidian-850 border border-white/15 overflow-hidden group-hover:border-cyan-glow/60 transition-all duration-300 shadow-md">
+          <div class="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <span class="font-title font-bold text-xs tracking-wider text-white">AC</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-title text-sm font-bold tracking-tight text-white flex items-center gap-1 group-hover:text-cyan-400 transition-colors">
+            ANSH<span class="text-cyan-glow">.</span>
+          </span>
+          <span class="text-[9px] font-mono text-slate-400 tracking-wider hidden sm:block">PORTFOLIO v2.6</span>
+        </div>
+      </a>
+
+      <!-- Desktop Links with Active Indicators -->
+      <div class="hidden md:flex items-center gap-8 text-xs font-mono tracking-wider uppercase text-slate-400">
+        <a href="#about" class="hover:text-cyan-glow transition-colors">/About</a>
+        <a href="#skills" class="hover:text-cyan-glow transition-colors">/Skills</a>
+        <a href="#projects" class="hover:text-cyan-glow transition-colors">/Work</a>
+        <a href="#timeline" class="hover:text-cyan-glow transition-colors">/Journey</a>
+        <a href="#terminal" class="hover:text-cyan-glow transition-colors">/CLI</a>
+      </div>
+
+      <!-- Action & Availability Status Badge -->
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[11px] font-mono">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>AVAILABLE</span>
+        </div>
+        <a href="#contact" class="px-4 py-1.5 rounded-full text-xs font-mono font-semibold bg-white text-obsidian-950 hover:bg-cyan-glow hover:text-black hover:shadow-[0_0_20px_rgba(0,242,254,0.4)] transition-all duration-300">
+          HIRE ME
+        </a>
+        <button id="mobileMenuBtn" aria-label="Toggle Menu" class="md:hidden p-1.5 text-slate-300 hover:text-white">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MOBILE SLIDE-DOWN DRAWER -->
+  <div id="mobileDrawer" class="fixed top-20 inset-x-4 z-40 bg-obsidian-900/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-6 hidden flex-col gap-4 shadow-2xl transition-all md:hidden">
+    <a href="#about" class="nav-drawer-link text-sm font-mono text-slate-300 hover:text-cyan-glow py-1">// ABOUT</a>
+    <a href="#skills" class="nav-drawer-link text-sm font-mono text-slate-300 hover:text-cyan-glow py-1">// SKILLS</a>
+    <a href="#projects" class="nav-drawer-link text-sm font-mono text-slate-300 hover:text-cyan-glow py-1">// SELECTED WORK</a>
+    <a href="#timeline" class="nav-drawer-link text-sm font-mono text-slate-300 hover:text-cyan-glow py-1">// JOURNEY TIMELINE</a>
+    <a href="#terminal" class="nav-drawer-link text-sm font-mono text-slate-300 hover:text-cyan-glow py-1">// TERMINAL REPL</a>
+    <a href="#contact" class="nav-drawer-link text-sm font-mono text-slate-300 hover:text-cyan-glow py-1">// CONTACT ME</a>
+  </div>
+
+  <main class="relative z-10">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="min-h-screen flex items-center justify-center pt-28 pb-16 px-4 bg-grid-mesh relative">
+      <div class="max-w-5xl mx-auto flex flex-col items-center text-center">
+
+        <!-- Top Status Pill -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-obsidian-850 border border-white/10 text-xs font-mono text-slate-300 mb-8 backdrop-blur-md shadow-inner">
+          <span class="w-2 h-2 rounded-full bg-cyan-glow animate-pulse"></span>
+          <span>Based in New Delhi, India &bull; Full-Stack & UI Enthusiast</span>
+        </div>
+
+        <!-- Big Hero Headings -->
+        <h1 class="text-4xl sm:text-6xl md:text-8xl font-title font-extrabold tracking-tight text-white mb-4 leading-none select-none">
+          ANSH <span class="text-glow-gradient">CHOUDHARY</span>
+        </h1>
+
+        <!-- Kinetic Typewriter Roles -->
+        <div class="h-10 sm:h-12 flex items-center justify-center mb-8">
+          <span class="text-lg sm:text-2xl font-mono text-cyan-glow tracking-tight flex items-center">
+            <span>&gt;&nbsp;</span>
+            <span id="roleTypewriter"></span>
+            <span class="type-cursor"></span>
+          </span>
+        </div>
+
+        <!-- Mission Bio Statement -->
+        <p class="text-slate-400 text-sm sm:text-base md:text-lg max-w-2xl font-normal leading-relaxed mb-10">
+          I craft hyper-responsive user interfaces, sleek web applications, and intelligent automated workflows with surgical precision and clean, maintainable architecture.
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+          <a href="#projects" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white text-obsidian-950 font-semibold font-display text-sm hover:bg-cyan-glow hover:shadow-[0_0_28px_rgba(0,242,254,0.45)] transition-all duration-300 flex items-center justify-center gap-2 group">
+            <span>Explore Work</span>
+            <i data-lucide="arrow-down" class="w-4 h-4 group-hover:translate-y-0.5 transition-transform"></i>
+          </a>
+          <button onclick="copyEmailToClipboard()" class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-obsidian-850 hover:bg-obsidian-800 border border-white/10 hover:border-cyan-glow/40 text-slate-200 font-mono text-xs flex items-center justify-center gap-2 transition-all">
+            <i data-lucide="copy" class="w-4 h-4 text-cyan-glow"></i>
+            <span id="copyEmailText">Copy Contact Email</span>
+          </button>
+        </div>
+
+        <!-- Metrics Ticker Bar -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-12 mt-20 pt-8 border-t border-white/10 w-full max-w-3xl">
+          <div class="text-center">
+            <div class="text-3xl sm:text-4xl font-title font-bold text-white tracking-tight">100%</div>
+            <div class="text-[11px] font-mono text-slate-400 uppercase tracking-widest mt-1">Mobile Responsive</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl sm:text-4xl font-title font-bold text-cyan-glow tracking-tight">12+</div>
+            <div class="text-[11px] font-mono text-slate-400 uppercase tracking-widest mt-1">Projects Built</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl sm:text-4xl font-title font-bold text-violet-accent tracking-tight">&lt;100ms</div>
+            <div class="text-[11px] font-mono text-slate-400 uppercase tracking-widest mt-1">Load Time Focus</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl sm:text-4xl font-title font-bold text-emerald-400 tracking-tight">24/7</div>
+            <div class="text-[11px] font-mono text-slate-400 uppercase tracking-widest mt-1">Active Iteration</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- BENTO GRID ABOUT & PHILOSOPHY SECTION -->
+    <section id="about" class="py-24 px-4 max-w-6xl mx-auto">
+      <div class="flex flex-col gap-3 mb-12">
+        <div class="text-xs font-mono text-cyan-glow tracking-widest uppercase flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-glow"></span>
+          01 // Identity & Manifesto
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-title font-bold text-white">
+          Architecting elegance through clean logic.
+        </h2>
+      </div>
+
+      <!-- Bento Grid Container -->
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-12 gap-5 items-stretch">
+        
+        <!-- Bento 1: Primary Bio Card (Span 7) -->
+        <div class="glass-panel glass-panel-interactive rounded-3xl p-8 lg:col-span-7 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="text-xs font-mono text-slate-400">// CORE OVERVIEW</span>
+              <div class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-cyan-glow"></span>
+                <span class="text-[10px] font-mono text-slate-400">STATUS: CODING</span>
+              </div>
+            </div>
+            <h3 class="text-2xl font-title font-bold text-white mb-4">
+              Building at the intersection of modern design, fluid motion, and functional logic.
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+              I am Ansh Choudhary, an ambitious developer from New Delhi, India. I specialize in front-end architecture, mobile-first responsive systems, and intelligent workflow automations. 
+            </p>
+            <p class="text-slate-400 text-xs leading-relaxed">
+              My methodology balances pixel-perfect visual balance with clean, organized code. From crafting artisanal commercial portals like <span class="text-cyan-glow font-medium">Arti Creations</span> to engineering Telegram automation pipelines, I obsess over performance, typography, and micro-interactions.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap gap-2 pt-6 mt-6 border-t border-white/5 font-mono text-[11px]">
+            <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300">Front-End UI</span>
+            <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300">Automation Bots</span>
+            <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300">CSS Art & Canvas</span>
+            <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300">Mobile Engineering</span>
+          </div>
+        </div>
+
+        <!-- Bento 2: Ansh Config JSON Live Window (Span 5) -->
+        <div class="glass-panel glass-panel-interactive rounded-3xl p-6 lg:col-span-5 flex flex-col justify-between font-mono">
+          <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
+            <div class="flex items-center gap-1.5">
+              <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+            </div>
+            <span class="text-[11px] text-slate-400 font-mono">ansh_config.json</span>
+          </div>
+          
+          <div class="text-[12px] leading-relaxed overflow-x-auto text-slate-300 bg-obsidian-950/80 p-4 rounded-xl border border-white/5">
+            <span class="token-comment">// System Profile Definition</span><br/>
+            {<br/>
+            &nbsp;&nbsp;<span class="token-keyword">"developer"</span>: <span class="token-string">"Ansh Choudhary"</span>,<br/>
+            &nbsp;&nbsp;<span class="token-keyword">"origin"</span>: <span class="token-string">"New Delhi, India"</span>,<br/>
+            &nbsp;&nbsp;<span class="token-keyword">"mindset"</span>: <span class="token-string">"Ship fast, refine obsessively"</span>,<br/>
+            &nbsp;&nbsp;<span class="token-keyword">"coreDisciplines"</span>: [<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="token-string">"Modern Web"</span>,<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="token-string">"Python Scripting"</span>,<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="token-string">"AI Automations"</span><br/>
+            &nbsp;&nbsp;],<br/>
+            &nbsp;&nbsp;<span class="token-keyword">"currentFocus"</span>: <span class="token-string">"Interactive 3D UI & Canvas"</span>,<br/>
+            &nbsp;&nbsp;<span class="token-keyword">"openForWork"</span>: <span class="token-number">true</span><br/>
+            }
+          </div>
+
+          <div class="flex items-center justify-between text-[11px] text-slate-500 pt-3">
+            <span>Encoding: UTF-8</span>
+            <span>Status: Verified</span>
+          </div>
+        </div>
+
+        <!-- Bento 3: Quick Metric Highlight 1 (Span 4) -->
+        <div class="glass-panel glass-panel-interactive rounded-3xl p-6 lg:col-span-4 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-cyan-glow/10 border border-cyan-glow/20 flex items-center justify-center text-cyan-glow">
+            <i data-lucide="layers" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="text-white font-title font-bold text-base">Responsive First</div>
+            <div class="text-slate-400 text-xs">Tested thoroughly on real mobile touch displays.</div>
+          </div>
+        </div>
+
+        <!-- Bento 4: Quick Metric Highlight 2 (Span 4) -->
+        <div class="glass-panel glass-panel-interactive rounded-3xl p-6 lg:col-span-4 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-violet-accent/10 border border-violet-accent/20 flex items-center justify-center text-violet-accent">
+            <i data-lucide="cpu" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="text-white font-title font-bold text-base">Automation Flow</div>
+            <div class="text-slate-400 text-xs">Connecting webhook payloads, APIs & Telegram bots.</div>
+          </div>
+        </div>
+
+        <!-- Bento 5: Quick Metric Highlight 3 (Span 4) -->
+        <div class="glass-panel glass-panel-interactive rounded-3xl p-6 lg:col-span-4 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+            <i data-lucide="zap" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="text-white font-title font-bold text-base">Zero Bloat</div>
+            <div class="text-slate-400 text-xs">Lightweight DOM structures for instantaneous loading.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- WHAT I CAN DO / SKILLS MATRIX -->
+    <section id="skills" class="py-24 px-4 bg-obsidian-900/60 relative">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col gap-3 mb-14 text-center items-center">
+          <div class="text-xs font-mono text-cyan-glow tracking-widest uppercase flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-cyan-glow"></span>
+            02 // Skills & Arsenal
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-title font-bold text-white">
+            What I Can Do
+          </h2>
+          <p class="text-slate-400 text-xs sm:text-sm max-w-xl">
+            My technology suite for turning ideas into polished, commercial-ready digital artifacts.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+          <!-- Skill Category 1 -->
+          <div class="glass-panel glass-panel-interactive rounded-3xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-cyan-glow/10 border border-cyan-glow/30 flex items-center justify-center text-cyan-glow mb-5">
+                <i data-lucide="layout-template" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-lg font-title font-bold text-white mb-2">Frontend & UI</h3>
+              <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                Constructing modern interfaces with high framerate responsiveness.
+              </p>
+            </div>
+            <ul class="space-y-2 text-xs font-mono text-slate-300">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-cyan-glow"></i> HTML5 Semantic Web</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-cyan-glow"></i> CSS3 & Tailwind CSS</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-cyan-glow"></i> Modern ES6+ JavaScript</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-cyan-glow"></i> HTML5 Canvas 2D</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-cyan-glow"></i> Glassmorphic Design</li>
+            </ul>
+          </div>
+
+          <!-- Skill Category 2 -->
+          <div class="glass-panel glass-panel-interactive rounded-3xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 mb-5">
+                <i data-lucide="terminal" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-lg font-title font-bold text-white mb-2">Python & Logic</h3>
+              <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                Scripting, algorithmic solutions, and on-the-go mobile dev environments.
+              </p>
+            </div>
+            <ul class="space-y-2 text-xs font-mono text-slate-300">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-purple-400"></i> Python 3 Fundamentals</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-purple-400"></i> Pydroid 3 & Mobile IDEs</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-purple-400"></i> Data Structures & Logic</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-purple-400"></i> File I/O & Automation</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-purple-400"></i> JSON Parsing & RegEx</li>
+            </ul>
+          </div>
+
+          <!-- Skill Category 3 -->
+          <div class="glass-panel glass-panel-interactive rounded-3xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-5">
+                <i data-lucide="bot" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-lg font-title font-bold text-white mb-2">AI & Automation</h3>
+              <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                No-code pipelines, AI prompt engineering, and background bot workers.
+              </p>
+            </div>
+            <ul class="space-y-2 text-xs font-mono text-slate-300">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> Make.com (Integromat)</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> Telegram Bot APIs</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> Webhook Triggers</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> AI Agent Prompts</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> Automated Broadcasting</li>
+            </ul>
+          </div>
+
+          <!-- Skill Category 4 -->
+          <div class="glass-panel glass-panel-interactive rounded-3xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-5">
+                <i data-lucide="palette" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-lg font-title font-bold text-white mb-2">Creative & Media</h3>
+              <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                Visual storytelling, asset creation, and content post-production.
+              </p>
+            </div>
+            <ul class="space-y-2 text-xs font-mono text-slate-300">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> Canva UI Graphic Design</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> CapCut & VN Editor</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> Video Pace & Transitions</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> Visual Branding & Themes</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> GitHub & Git Versioning</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SELECTED WORK / PROJECTS SHOWCASE -->
+    <section id="projects" class="py-24 px-4 max-w-6xl mx-auto">
+      <div class="flex flex-col gap-3 mb-14">
+        <div class="text-xs font-mono text-cyan-glow tracking-widest uppercase flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-glow"></span>
+          03 // Featured Deployments
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-title font-bold text-white">
+          Selected Projects
+        </h2>
+        <p class="text-slate-400 text-xs sm:text-sm max-w-xl">
+          Polished web solutions engineered with attention to user flow, UI polish, and functional speed.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- Project 1: Arti Creations -->
+        <div class="glass-panel glass-panel-interactive rounded-3xl overflow-hidden flex flex-col group border-t-2 border-t-pink-500/40">
+          <div class="p-4 bg-obsidian-900 border-b border-white/5 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span>
+              <span class="text-xs font-mono text-slate-300">Arti Creations &bull; Storefront</span>
+            </div>
+            <span class="text-[10px] font-mono text-pink-400 px-2 py-0.5 rounded bg-pink-500/10 border border-pink-500/20">LIVE COMMERCE</span>
+          </div>
+
+          <!-- Hero Display Graphic -->
+          <div class="h-48 sm:h-56 bg-gradient-to-br from-pink-950/40 via-obsidian-900 to-purple-950/40 p-6 flex flex-col justify-end relative overflow-hidden">
+            <div class="absolute -right-6 -bottom-6 w-36 h-36 rounded-full bg-pink-500/10 blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+            <div class="text-pink-400 font-mono text-xs uppercase tracking-wider mb-1">E-Commerce & Handcrafted Goods</div>
+            <h4 class="text-2xl font-title font-bold text-white group-hover:text-pink-300 transition-colors">Arti Creations</h4>
+          </div>
+
+          <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6">
+              A tailor-made boutique web platform built to showcase handmade crochet art, personalized bouquets, and custom craft orders. Built with mobile-first checkout flows and dynamic category filtering.
+            </p>
+            <div>
+              <div class="flex flex-wrap gap-2 mb-6 font-mono text-[11px]">
+                <span class="px-2.5 py-1 rounded-md bg-obsidian-850 border border-white/10 text-slate-300">HTML5</span>
+                <span class="px-2.5 py-1 rounded-md bg-obsidian-850 border border-white/10 text-slate-300">Tailwind CSS</span>
+                <span class="px-2.5 py-1 rounded-md bg-obsidian-850 border border-white/10 text-slate-300">JavaScript ES6</span>
+                <span class="px-2.5 py-1 rounded-md bg-obsidian-850 border border-white/10 text-slate-300">Responsive Cart</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <button onclick="triggerProjectDetail('Arti Creations', 'Digital storefront handcrafted for boutique crochet and customized gifts. Features seamless WhatsApp integration for order fulfillment, category filtering, cart calculation, and responsive mobile-first UI architecture.', ['HTML5 Semantic', 'Tailwind CSS', 'Client-side Cart Engine', 'Mobile UX Design'])" class="flex-1 py-2.5 rounded-xl bg-white/10 hover:bg-cyan-glow hover:text-black text-white font-mono text-xs font-semibold transition-all flex items-center justify-center gap-2">
+                  <span>Inspect Architecture</span>
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2: Apex Fitness / Gym Hub -->
+        <div class="glass-panel glass-panel-interactive rounded-3xl overflow-hidden flex flex-col group border-t-2 border-t-amber-500/40">
+          <div class="p-4 bg-obsidian-900 border-b border-white/5 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+              <span class="text-xs font-mono text-slate-300">Apex Fitness &bull; Gym Portal</span>
+            </div>
+            <span class="text-[10px] font-mono text-amber-400 px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">WEB APP</span>
+          </div>
+
+          <div class="h-48 sm:h-56 bg-gradient-to-br from-amber-950/40 via-obsidian-900 to-red-950/40 p-6 flex flex-col justify-end relative overflow-hidden">
+            <div class="absolute -right-6 -bottom-6 w-36 h-36 rounded-full bg-amber-500/10 blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+            <div class="text-amber-400 font-mono text-xs uppercase tracking-wider mb-1">Athletic & Membership Portal</div>
+            <h4 class="text-2xl font-title font-bold text-white group-hover:text-amber-300 transition-colors">Apex Fitness Hub</h4>
+          </div>
+
+          <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6">
+              Modern fitness portal featuring an interactive membership pricing calculator, workout schedule viewer, personal trainer spotlight cards, and lead capture inquiries.
+            </p>
+            <div>
+              <div class="flex flex-wrap gap-2 mb-6 font-mono text-[11px]">
+                <span class="px-2.5 py-1 rounded-md bg-obsidian-850 border border-white/10 text-slate-300">CSS Grid</span>
+                <span class="px-2.5 py-1 rounded-md bg-obsidian-850 border border-white/10 text-slate-300">DOM Calculations</span>
+                <span class="px-2.5 py-1 rounded-md bg-obsidian-850 border border-white/10 text-slate-300">Micro-animations</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <button onclick="triggerProjectDetail('Apex Fitness Hub', 'Dynamic fitness center platform with an interactive membership tier toggle, animated routine preview, and responsive class scheduling grid built with clean semantic standards.', ['Responsive Layouts', 'Interactive Form Validation', 'CSS Flexbox & Keyframes'])" class="flex-1 py-2.5 rounded-xl bg-white/10 hover:bg-cyan-glow hover:text-black text-white font-mono text-xs font-semibold transition-all flex items-center justify-center gap-2">
+                  <span>Inspect Architecture</span>
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3: AI Telegram Bot & Automation Engine -->
+        <div class="glass-panel glass-panel-interactive rounded-3xl overflow-hidden flex flex-col group border-t-2 border-t-cyan-glow/40">
+          <div class="p-4 bg-obsidian-900 border-b border-white/5 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-cyan-glow"></span>
+              <span class="text-xs font-mono text-slate-300">AutoBot &bull; Workflow Automation</span>
+            </div>
+            <span class="text-[10px] font-mono text-cyan-glow px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20">BACKGROUND BOT</span>
+          </div>
+
+          <div class="h-48 sm:h-56 bg-gradient-to-br from-cyan-950/40 via-obsidian-900 to-blue-950/40 p-6 flex flex-col justify-end relative overflow-hidden">
+            <div class="absolute -right-6 -bottom-6 w-36 h-36 rounded-full bg-cyan-glow/10 blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+            <div class="text-cyan-glow font-mono text-xs uppercase tracking-wider mb-1">Make.com & Telegram Pipeline</div>
+            <h4 class="text-2xl font-title font-bold text-white group-hover:text-cyan-300 transition-colors">AI Telegram Deal Broadcaster</h4>
+          </div>
+
+          <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6">
+              Automated channel broadcasting pipeline. Scrapes real-time affiliate deals, formats rich markdown captions with dynamic discount tags, and transmits them straight to audience feeds.
+            </p>
+            <div>
+              <div class="flex flex-wrap gap-2 mb-6 font-mono text-[11px]">
+                <span class="px-2.5 py-1 rounded-md bg-obsidian-850 border border-white/10 text-slate-300">Make.com</span>
+                <span class="px-2.5 py-1 rounded-md bg-obsidian-850 border border-white/10 text-slate-300">Telegram Bot API</span>
+                <span class="px-2.5 py-1 rounded-md bg-obsidian-850 border border-white/10 text-slate-300">Webhooks</span>
+                <span class="px-2.5 py-1 rounded-md bg-obsidian-850 border border-white/10 text-slate-300">Regex Filters</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <button onclick="triggerProjectDetail('AI Telegram Deal Broadcaster', 'End-to-end automation engine processing affiliate payloads, filtering price drops, synthesizing promotional ad copy, and delivering structured broadcasts to Telegram subscribers 24/7.', ['Make.com Scenarios', 'Telegram HTTP APIs', 'Webhook Listeners', 'Automated Scheduling'])" class="flex-1 py-2.5 rounded-xl bg-white/10 hover:bg-cyan-glow hover:text-black text-white font-mono text-xs font-semibold transition-all flex items-center justify-center gap-2">
+                  <span>Inspect Architecture</span>
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4: Smart Calculator & Web Utilities -->
+        <div class="glass-panel glass-panel-interactive rounded-3xl overflow-hidden flex flex-col group border-t-2 border-t-purple-500/40">
+          <div class="p-4 bg-obsidian-900 border-b border-white/5 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
+              <span class="text-xs font-mono text-slate-300">Utils &bull; Math Suite</span>
+            </div>
+            <span class="text-[10px] font-mono text-purple-400 px-2 py-0.5 rounded bg-purple-500/10 border border-purple-500/20">INTERACTIVE SUITE</span>
+          </div>
+
+          <div class="h-48 sm:h-56 bg-gradient-to-br from-purple-950/40 via-obsidian-900 to-indigo-950/40 p-6 flex flex-col justify-end relative overflow-hidden">
+            <div class="absolute -right-6 -bottom-6 w-36 h-36 rounded-full bg-purple-500/10 blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+            <div class="text-purple-400 font-mono text-xs uppercase tracking-wider mb-1">Precision Tooling & Calculations</div>
+            <h4 class="text-2xl font-title font-bold text-white group-hover:text-purple-300 transition-colors">Precision Calculator Suite</h4>
+          </div>
+
+          <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6">
+              Sleek glassmorphic web utility featuring history calculation caching, keyboard event bindings, scientific expressions, and dynamic theme switching.
+            </p>
+            <div>
+              <div class="flex flex-wrap gap-2 mb-6 font-mono text-[11px]">
+                <span class="px-2.5 py-1 rounded-md bg-obsidian-850 border border-white/10 text-slate-300">Vanilla JS</span>
+                <span class="px-2.5 py-1 rounded-md bg-obsidian-850 border border-white/10 text-slate-300">Glassmorphism</span>
+                <span class="px-2.5 py-1 rounded-md bg-obsidian-850 border border-white/10 text-slate-300">Keyboard Listeners</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <button onclick="triggerProjectDetail('Precision Calculator Suite', 'Lightweight mathematical computation tool written in vanilla JavaScript with complete event listener support for desktop keyboards, history memory stack, and responsive touchscreen numpad.', ['State Engine', 'DOM Listeners', 'Haptic Touch UI'])" class="flex-1 py-2.5 rounded-xl bg-white/10 hover:bg-cyan-glow hover:text-black text-white font-mono text-xs font-semibold transition-all flex items-center justify-center gap-2">
+                  <span>Inspect Architecture</span>
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RETRO DOT-MATRIX LED RUNNER (Exact feature from the video) -->
+    <section class="py-14 border-y border-white/10 bg-obsidian-900/90 relative overflow-hidden">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-cyan-glow animate-pulse"></span>
+            <span class="text-[11px] font-mono text-cyan-glow tracking-widest uppercase">LED DOT-MATRIX TELETYPE</span>
+          </div>
+          <span class="text-[10px] font-mono text-slate-500">SAMPLING RATE: 60FPS</span>
+        </div>
+        <!-- Dot Canvas Frame -->
+        <div class="p-3 rounded-2xl bg-obsidian-950 border border-white/10 shadow-2xl overflow-hidden">
+          <canvas id="dotMatrixLed" class="w-full h-24 sm:h-28 block"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOURNEY & TIMELINE -->
+    <section id="timeline" class="py-24 px-4 max-w-4xl mx-auto">
+      <div class="flex flex-col gap-3 mb-14 text-center items-center">
+        <div class="text-xs font-mono text-cyan-glow tracking-widest uppercase flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-glow"></span>
+          04 // Milestones & Track Record
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-title font-bold text-white">
+          Developer Journey
+        </h2>
+        <p class="text-slate-400 text-xs sm:text-sm max-w-md">
+          A progression of disciplined learning, hands-on development, and digital experimentation.
+        </p>
+      </div>
+
+      <div class="relative border-l-2 border-white/10 pl-6 sm:pl-8 ml-4 sm:ml-8 space-y-12">
+
+        <!-- Timeline 1 -->
+        <div class="relative group">
+          <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-obsidian-950 border-2 border-cyan-glow group-hover:bg-cyan-glow transition-colors"></div>
+          <span class="text-xs font-mono text-cyan-glow uppercase tracking-wider">2024 — Present</span>
+          <h3 class="text-xl font-title font-bold text-white mt-1 mb-2">Modern Front-End & Automation Specialization</h3>
+          <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-3">
+            Architected full commercial web applications (such as Arti Creations), expanded automated Telegram marketing bots via Make.com, and mastered responsive layout engineering with Tailwind CSS and JavaScript.
+          </p>
+          <div class="flex flex-wrap gap-2 text-[11px] font-mono text-slate-400">
+            <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Arti Creations Production</span>
+            <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Bot Automation</span>
+          </div>
+        </div>
+
+        <!-- Timeline 2 -->
+        <div class="relative group">
+          <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-obsidian-950 border-2 border-purple-500 group-hover:bg-purple-500 transition-colors"></div>
+          <span class="text-xs font-mono text-purple-400 uppercase tracking-wider">2023 — 2024</span>
+          <h3 class="text-xl font-title font-bold text-white mt-1 mb-2">Python Foundations & Mobile Development</h3>
+          <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-3">
+            Programmed algorithmic scripts, data parsing routines, and utilities using Python in mobile developer environments (Pydroid 3). Mastered web core concepts including semantic HTML, CSS layout structures, and JavaScript DOM interaction.
+          </p>
+          <div class="flex flex-wrap gap-2 text-[11px] font-mono text-slate-400">
+            <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Python Scripting</span>
+            <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">DOM Manipulation</span>
+          </div>
+        </div>
+
+        <!-- Timeline 3 -->
+        <div class="relative group">
+          <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-obsidian-950 border-2 border-slate-600 group-hover:bg-slate-400 transition-colors"></div>
+          <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Early Days</span>
+          <h3 class="text-xl font-title font-bold text-white mt-1 mb-2">Visual Storytelling & Computer Science Curiosity</h3>
+          <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-3">
+            Designed high-engagement multimedia graphics, video edits with CapCut/VN, and initiated structured programming studies in school STEM programs.
+          </p>
+          <div class="flex flex-wrap gap-2 text-[11px] font-mono text-slate-400">
+            <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Graphic Design</span>
+            <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5">Problem Solving</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- INTERACTIVE CLI TERMINAL PLAYGROUND -->
+    <section id="terminal" class="py-24 px-4 max-w-4xl mx-auto">
+      <div class="flex flex-col gap-3 mb-10 text-center items-center">
+        <div class="text-xs font-mono text-cyan-glow tracking-widest uppercase flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-glow"></span>
+          05 // Developer Playground
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-title font-bold text-white">
+          Interactive CLI Terminal
+        </h2>
+        <p class="text-slate-400 text-xs sm:text-sm max-w-md">
+          Type commands below to interact directly with Ansh's portfolio profile in real-time.
+        </p>
+      </div>
+
+      <div class="glass-panel rounded-3xl overflow-hidden border border-white/10 shadow-2xl font-mono">
+        <!-- Terminal Header -->
+        <div class="p-4 bg-obsidian-900 border-b border-white/10 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+            <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+            <span class="text-xs text-slate-400 ml-2">ansh@choudhary-workstation:~ (zsh)</span>
+          </div>
+          <span class="text-[10px] text-slate-500">TYPE 'help' FOR CMDS</span>
+        </div>
+
+        <!-- Terminal Log Window -->
+        <div id="terminalOutput" class="p-6 bg-obsidian-950/90 text-xs leading-relaxed space-y-2 max-h-80 overflow-y-auto">
+          <div class="text-slate-400">Welcome to Ansh Choudhary's interactive system shell [Version 2.6.0]</div>
+          <div class="text-slate-400">Type <span class="text-cyan-glow font-bold">help</span> to view available system commands or <span class="text-purple-400 font-bold">hire</span> to connect.</div>
+        </div>
+
+        <!-- Terminal Input Line -->
+        <form id="terminalForm" onsubmit="handleTerminalCommand(event)" class="flex items-center px-6 py-4 bg-obsidian-900 border-t border-white/5">
+          <span class="text-cyan-glow font-bold mr-2 text-xs">ansh&gt;</span>
+          <input type="text" id="terminalInput" autocomplete="off" spellcheck="false" placeholder="Enter command (e.g. skills, projects, about, clear)..." class="flex-1 bg-transparent text-white text-xs font-mono focus:outline-none placeholder-slate-600" />
+          <button type="submit" class="px-3 py-1 rounded bg-white/10 hover:bg-cyan-glow hover:text-black text-[11px] text-slate-300 font-mono transition-colors">
+            Run
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- GET IN TOUCH / CONTACT SECTION -->
+    <section id="contact" class="py-24 px-4 max-w-4xl mx-auto">
+      <div class="flex flex-col gap-3 mb-12 text-center items-center">
+        <div class="text-xs font-mono text-cyan-glow tracking-widest uppercase flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-glow"></span>
+          06 // Dispatch A Transmission
+        </div>
+        <h2 class="text-4xl sm:text-6xl font-title font-extrabold text-white">
+          Get In Touch.
+        </h2>
+        <p class="text-slate-400 text-xs sm:text-sm max-w-lg">
+          Looking for a tailored web solution, an automated pipeline, or have a collaborative opportunity? My inbox is always active.
+        </p>
+      </div>
+
+      <div class="glass-panel rounded-3xl p-6 sm:p-10 border border-white/10 relative">
+        <form id="portfolioContactForm" onsubmit="handleContactDispatch(event)" class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label for="contactName" class="block text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-2">Your Name *</label>
+              <input type="text" id="contactName" required placeholder="e.g. Alex Morgan" class="w-full px-4 py-3.5 rounded-xl bg-obsidian-950/80 border border-white/10 text-white placeholder-slate-600 text-xs font-mono focus:outline-none focus:border-cyan-glow focus:ring-1 focus:ring-cyan-glow transition-all" />
+            </div>
+            <div>
+              <label for="contactEmail" class="block text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-2">Email Address *</label>
+              <input type="email" id="contactEmail" required placeholder="e.g. alex@company.com" class="w-full px-4 py-3.5 rounded-xl bg-obsidian-950/80 border border-white/10 text-white placeholder-slate-600 text-xs font-mono focus:outline-none focus:border-cyan-glow focus:ring-1 focus:ring-cyan-glow transition-all" />
+            </div>
+          </div>
+
+          <div>
+            <label for="contactProject" class="block text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-2">Project Scope or Inquiries *</label>
+            <textarea id="contactProject" rows="4" required placeholder="Describe your web project requirements, target goals, or timelines..." class="w-full px-4 py-3.5 rounded-xl bg-obsidian-950/80 border border-white/10 text-white placeholder-slate-600 text-xs font-mono focus:outline-none focus:border-cyan-glow focus:ring-1 focus:ring-cyan-glow transition-all resize-none"></textarea>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+            <div class="flex items-center gap-3 text-slate-400 text-xs font-mono">
+              <span class="flex items-center gap-1.5 text-emerald-400">
+                <i data-lucide="shield-check" class="w-4 h-4"></i> High Response Rate
+              </span>
+            </div>
+            <button type="submit" id="contactSubmitBtn" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-cyan-glow hover:bg-white text-obsidian-950 font-bold font-mono text-xs tracking-wider transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_0_24px_rgba(0,242,254,0.35)]">
+              <span id="contactBtnText">TRANSMIT MESSAGE</span>
+              <i data-lucide="send" id="contactBtnIcon" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </form>
+
+        <!-- Success Toast Notification -->
+        <div id="contactToast" class="hidden mt-6 p-4 rounded-xl bg-cyan-500/10 border border-cyan-glow/30 text-cyan-glow text-xs font-mono text-center">
+          ✓ Transmission received! Thank you, Ansh has logged your inquiry and will reply promptly.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- LUXURY FOOTER -->
+  <footer class="py-12 border-t border-white/10 bg-obsidian-950 text-slate-500 text-xs font-mono relative z-10">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white font-title font-bold text-xs">
+          AC
+        </div>
+        <span class="text-slate-400">Built & Maintained by <span class="text-white font-medium">Ansh Choudhary</span> &bull; 2026</span>
+      </div>
+      
+      <div class="flex items-center gap-6">
+        <a href="#hero" class="hover:text-cyan-glow transition-colors">TOP ↑</a>
+        <a href="#about" class="hover:text-cyan-glow transition-colors">ABOUT</a>
+        <a href="#projects" class="hover:text-cyan-glow transition-colors">PROJECTS</a>
+        <a href="#terminal" class="hover:text-cyan-glow transition-colors">CLI</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- PROJECT ARCHITECTURE MODAL -->
+  <div id="projectModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-xl hidden items-center justify-center p-4">
+    <div class="glass-panel rounded-3xl max-w-lg w-full p-6 sm:p-8 relative border border-white/15">
+      <button onclick="closeProjectDetail()" class="absolute top-5 right-5 p-2 rounded-full bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="text-[11px] font-mono text-cyan-glow mb-1">// ARCHITECTURE BLUEPRINT</div>
+      <h3 id="modalTitle" class="text-2xl font-title font-bold text-white mb-3">Project Title</h3>
+      
+      <p id="modalDesc" class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6">
+        Detailed description...
+      </p>
+
+      <div class="mb-6">
+        <div class="text-[11px] font-mono text-slate-400 mb-2">Technical Implementation Stack:</div>
+        <div id="modalTags" class="flex flex-wrap gap-2"></div>
+      </div>
+
+      <div class="pt-4 border-t border-white/5 flex gap-3">
+        <button onclick="closeProjectDetail()" class="w-full py-2.5 rounded-xl bg-white/10 hover:bg-cyan-glow hover:text-black text-white font-mono text-xs font-semibold transition-all">
+          Close Blueprint
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT ENGINE -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // 1. Kinetic Typewriter Role Switcher
+    const roles = [
+      "Front-End Web Developer",
+      "AI & Automation Builder",
+      "Creative Digital Craftsman",
+      "Mobile Architecture Enthusiast"
+    ];
+    let roleIdx = 0;
+    let charIdx = 0;
+    let isDeleting = false;
+    const typewriterEl = document.getElementById('roleTypewriter');
+
+    function typeLoop() {
+      const currentRole = roles[roleIdx];
+      
+      if (isDeleting) {
+        typewriterEl.textContent = currentRole.substring(0, charIdx - 1);
+        charIdx--;
+      } else {
+        typewriterEl.textContent = currentRole.substring(0, charIdx + 1);
+        charIdx++;
+      }
+
+      let typingSpeed = isDeleting ? 40 : 85;
+
+      if (!isDeleting && charIdx === currentRole.length) {
+        typingSpeed = 2200; // Pause on complete word
+        isDeleting = true;
+      } else if (isDeleting && charIdx === 0) {
+        isDeleting = false;
+        roleIdx = (roleIdx + 1) % roles.length;
+        typingSpeed = 400;
+      }
+
+      setTimeout(typeLoop, typingSpeed);
+    }
+    typeLoop();
+
+    // 2. Cursor Torchlight Follower
+    const torchLight = document.getElementById('torchLight');
+    window.addEventListener('pointermove', (e) => {
+      torchLight.style.left = `${e.clientX}px`;
+      torchLight.style.top = `${e.clientY}px`;
+    });
+
+    // 3. Mobile Navigation Drawer
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const drawerLinks = document.querySelectorAll('.nav-drawer-link');
+
+    mobileBtn.addEventListener('click', () => {
+      mobileDrawer.classList.toggle('hidden');
+      mobileDrawer.classList.toggle('flex');
+    });
+
+    drawerLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileDrawer.classList.add('hidden');
+        mobileDrawer.classList.remove('flex');
+      });
+    });
+
+    // 4. 3D Card Hover Tilt Micro-Interactions
+    const tiltCards = document.querySelectorAll('.glass-panel-interactive');
+    tiltCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -5;
+        const rotateY = ((x - centerX) / centerX) * 5;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+      });
+    });
+
+    // 5. Dynamic Background Floating Particle Grid
+    const ambCanvas = document.getElementById('ambientCanvas');
+    const ambCtx = ambCanvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      ambCanvas.width = window.innerWidth;
+      ambCanvas.height = window.innerHeight;
+      createParticles();
+    }
+
+    function createParticles() {
+      particles = [];
+      const count = Math.min(Math.floor(window.innerWidth / 25), 45);
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * ambCanvas.width,
+          y: Math.random() * ambCanvas.height,
+          radius: Math.random() * 1.5 + 0.5,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
+          alpha: Math.random() * 0.4 + 0.1
+        });
+      }
+    }
+
+    function renderAmbient() {
+      ambCtx.clearRect(0, 0, ambCanvas.width, ambCanvas.height);
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0) p.x = ambCanvas.width;
+        if (p.x > ambCanvas.width) p.x = 0;
+        if (p.y < 0) p.y = ambCanvas.height;
+        if (p.y > ambCanvas.height) p.y = 0;
+
+        ambCtx.beginPath();
+        ambCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ambCtx.fillStyle = `rgba(0, 242, 254, ${p.alpha})`;
+        ambCtx.fill();
+      });
+      requestAnimationFrame(renderAmbient);
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    renderAmbient();
+
+    // 6. Retro Dot-Matrix LED Ticker (Exact video effect)
+    const ledCanvas = document.getElementById('dotMatrixLed');
+    const ledCtx = ledCanvas.getContext('2d');
+    let ledOffset = 0;
+    const ledText = "✦ ANSH CHOUDHARY ✦ WEB DEVELOPER & AUTOMATION BUILDER ✦ DIGITAL CRAFTSMAN ✦ AVAILABLE FOR WORK ✦ ";
+
+    function resizeLedCanvas() {
+      ledCanvas.width = ledCanvas.parentElement.clientWidth;
+      ledCanvas.height = 90;
+    }
+
+    function drawLedMatrix() {
+      ledCtx.clearRect(0, 0, ledCanvas.width, ledCanvas.height);
+
+      const dotSpacing = 7;
+      const dotRadius = 1.9;
+      const cols = Math.floor(ledCanvas.width / dotSpacing);
+      const rows = Math.floor(ledCanvas.height / dotSpacing);
+
+      // Memory scratchpad
+      const scratch = document.createElement('canvas');
+      scratch.width = cols;
+      scratch.height = rows;
+      const sCtx = scratch.getContext('2d');
+
+      sCtx.fillStyle = '#000';
+      sCtx.fillRect(0, 0, cols, rows);
+      sCtx.fillStyle = '#fff';
+      sCtx.font = 'bold 11px monospace';
+      sCtx.textBaseline = 'middle';
+
+      ledOffset += 0.45;
+      const widthMeasure = sCtx.measureText(ledText).width;
+      const posX = -(ledOffset % widthMeasure);
+
+      sCtx.fillText(ledText, posX, rows / 2);
+      sCtx.fillText(ledText, posX + widthMeasure, rows / 2);
+      sCtx.fillText(ledText, posX + widthMeasure * 2, rows / 2);
+
+      const img = sCtx.getImageData(0, 0, cols, rows).data;
+
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const index = (r * cols + c) * 4;
+          const bright = img[index];
+
+          ledCtx.beginPath();
+          ledCtx.arc(c * dotSpacing + dotSpacing / 2, r * dotSpacing + dotSpacing / 2, dotRadius, 0, Math.PI * 2);
+
+          if (bright > 100) {
+            ledCtx.fillStyle = '#00f2fe';
+            ledCtx.shadowColor = '#00f2fe';
+            ledCtx.shadowBlur = 4;
+          } else {
+            ledCtx.fillStyle = 'rgba(255, 255, 255, 0.04)';
+            ledCtx.shadowBlur = 0;
+          }
+          ledCtx.fill();
+        }
+      }
+
+      requestAnimationFrame(drawLedMatrix);
+    }
+    window.addEventListener('resize', resizeLedCanvas);
+    resizeLedCanvas();
+    drawLedMatrix();
+
+    // 7. Interactive CLI Terminal Logic
+    function handleTerminalCommand(e) {
+      e.preventDefault();
+      const input = document.getElementById('terminalInput');
+      const cmd = input.value.trim().toLowerCase();
+      const out = document.getElementById('terminalOutput');
+      if (!cmd) return;
+
+      // Echo User Command
+      const userLine = document.createElement('div');
+      userLine.className = 'text-white flex items-center gap-2';
+      userLine.innerHTML = `<span class="text-cyan-glow">ansh&gt;</span> <span>${escapeHtml(cmd)}</span>`;
+      out.appendChild(userLine);
+
+      // Process Command
+      const respLine = document.createElement('div');
+      respLine.className = 'text-slate-300';
+
+      switch (cmd) {
+        case 'help':
+          respLine.innerHTML = `Available commands:<br/>
+          &bull; <strong class="text-cyan-glow">about</strong> : Display developer background<br/>
+          &bull; <strong class="text-cyan-glow">skills</strong> : List full technical stack<br/>
+          &bull; <strong class="text-cyan-glow">projects</strong> : View featured software deployments<br/>
+          &bull; <strong class="text-cyan-glow">hire</strong> : Jump straight to contact dispatch<br/>
+          &bull; <strong class="text-cyan-glow">clear</strong> : Purge the terminal screen`;
+          break;
+        case 'about':
+          respLine.innerHTML = `Ansh Choudhary &bull; Web Developer based in New Delhi, India.<br/>Specialized in clean UI engineering, mobile responsiveness, and automation systems.`;
+          break;
+        case 'skills':
+          respLine.innerHTML = `HTML5, CSS3, JavaScript (ES6+), Tailwind, Python (Pydroid 3), Make.com Automations, Telegram Bots, Video/Design (CapCut, Canva).`;
+          break;
+        case 'projects':
+          respLine.innerHTML = `1. Arti Creations (E-Commerce Storefront)<br/>2. Apex Fitness (Gym Portal)<br/>3. AI Telegram Deal Broadcaster<br/>4. Precision Calculator Suite`;
+          break;
+        case 'hire':
+          respLine.innerHTML = `Redirecting to contact dispatch...`;
+          location.href = '#contact';
+          break;
+        case 'clear':
+          out.innerHTML = '';
+          input.value = '';
+          return;
+        default:
+          respLine.className = 'text-red-400';
+          respLine.textContent = `Command not recognized: '${cmd}'. Type 'help' for instructions.`;
+      }
+
+      out.appendChild(respLine);
+      input.value = '';
+      out.scrollTop = out.scrollHeight;
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, function(m) {
+        return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[m];
+      });
+    }
+
+    // 8. Project Details Modal
+    function triggerProjectDetail(title, desc, tags) {
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalDesc').textContent = desc;
+
+      const tagContainer = document.getElementById('modalTags');
+      tagContainer.innerHTML = '';
+      tags.forEach(t => {
+        const badge = document.createElement('span');
+        badge.className = 'px-2.5 py-1 rounded bg-white/10 text-cyan-glow font-mono text-[11px] border border-white/10';
+        badge.textContent = t;
+        tagContainer.appendChild(badge);
+      });
+
+      const modal = document.getElementById('projectModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeProjectDetail() {
+      const modal = document.getElementById('projectModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeProjectDetail();
+    });
+
+    // 9. Contact Dispatch Simulation
+    function handleContactDispatch(e) {
+      e.preventDefault();
+      const btn = document.getElementById('contactSubmitBtn');
+      const text = document.getElementById('contactBtnText');
+      const toast = document.getElementById('contactToast');
+
+      text.textContent = 'DISPATCHING...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        text.textContent = 'TRANSMITTED!';
+        toast.classList.remove('hidden');
+        document.getElementById('portfolioContactForm').reset();
+
+        setTimeout(() => {
+          text.textContent = 'TRANSMIT MESSAGE';
+          btn.disabled = false;
+        }, 3500);
+      }, 700);
+    }
+
+    // 10. Copy Email Interaction
+    function copyEmailToClipboard() {
+      const email = "ansh.choudhary.developer@gmail.com";
+      const dummy = document.createElement("textarea");
+      document.body.appendChild(dummy);
+      dummy.value = email;
+      dummy.select();
+      document.execCommand("copy");
+      document.body.removeChild(dummy);
+
+      const copyLabel = document.getElementById('copyEmailText');
+      const oldText = copyLabel.textContent;
+      copyLabel.textContent = "Email Copied to Clipboard!";
+      setTimeout(() => {
+        copyLabel.textContent = oldText;
+      }, 2400);
+    }
+  </script>
+</body>
+</html>
